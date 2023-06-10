@@ -1,6 +1,5 @@
 // Copyright 2021 NNTU-CS
-int countPairs1(int *arr, int len, int value) {
-  return 0;
+int countPairs1(int* arr, int len, int value) {
   int count = 0;
   for (int i = 0; i < len - 1; i++) {
     for (int j = i + 1; j < len; j++) {
@@ -12,11 +11,10 @@ int countPairs1(int *arr, int len, int value) {
   return count;
 }
 
-int countPairs2(int *arr, int len, int value) {
-  return 0;
+int countPairs2(int* arr, int len, int value) {
   int count = 0;
   for (int i = 0; i < len - 1; i++) {
-    for (int j = len - 1; i < j; j--) {
+    for (int j = len - 1; j > i; j--) {
       if (arr[i] + arr[j] == value) {
         count += 1;
       }
@@ -25,31 +23,30 @@ int countPairs2(int *arr, int len, int value) {
   return count;
 }
 
-int countPairs3(int *arr, int len, int value) {
-  return 0;
+int countPairs3(int* arr, int len, int value) {
   int count = 0;
   for (int i = 0; i < len - 1; i++) {
-    int left = i, right = len;
-    while (left < right - 1) {
-      int mid = (left + right) / 2;
+    int s = i, f = len;
+    while (1 < f - s) {
+      int mid = (s + f) / 2;
       if (arr[i] + arr[mid] == value) {
-        count += 1;
-        int newmid = mid + 1;
-        while (arr[i] + arr[newmid] == value && newmid < right) {
-          count += 1;
-          newmid += 1;
+        count++;
+        int r = mid + 1;
+        while (arr[i] + arr[r] == value && r < f) {
+          count++;
+          r++;
         }
-        newmid = mid - 1;
-        while (arr[i] + arr[newmid] == value && newmid > left) {
-          count += 1;
-          newmid -= 1;
+        r = mid - 1;
+        while (arr[i] + arr[r] == value && r > s) {
+          count++;
+          r--;
         }
         break;
       }
       if (arr[i] + arr[mid] > value) {
-        right = mid;
+        f = mid;
       } else {
-        left = mid;
+        s = mid;
       }
     }
   }
